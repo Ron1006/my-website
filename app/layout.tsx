@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
+import Image from "next/image";
+import Footer from "./components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +26,49 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      {/* Added global dark background and white text here */}
+      <body className="min-h-full flex flex-col bg-[#050505] text-white">
+        
+        {/* --- NAVIGATION BAR --- */}
+        <nav className="w-full flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
+          {/* Logo */}
+          <Link href="/">
+            <Image 
+              src="/r-logo.png" 
+              alt="R Logo" 
+              width={40} 
+              height={40} 
+              className="cursor-pointer"
+            />
+          </Link>
+
+          {/* Desktop Links */}
+          <div className="flex items-center gap-8 text-sm text-gray-400">
+            <Link href="/#services" className="hover:text-white transition-colors">Services</Link>
+            <Link href="/#about" className="hover:text-white transition-colors">About Me</Link>
+            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
+            <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
+            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+          </div>
+
+          {/* Contact Button */}
+          <Link 
+            href="#contact" 
+            className="inline-block px-6 py-2 text-sm font-medium border border-gray-700 rounded-full hover:bg-white hover:text-black transition-all"
+          >
+            Get in touch
+          </Link>
+        </nav>
+        {/* --- END NAVIGATION BAR --- */}
+
+        {/* This is where your page content gets injected */}
+        {children}
+
+        {/* --- FOOTER --- */}
+        <Footer />
+        
+      </body>
     </html>
   );
 }
