@@ -1,8 +1,74 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Use standard CSS variable syntax: double dashes, colons, and semi-colons */
+  --color-primary: #040506;
+  --color-secondary: #c2c2c2;
+  --color-accent: #fea364;
+
+  /* For your design, I highly recommend adding your specific orange */
+  --color-brand-orange: #ff8a00;
+
+  /* Font families in CSS */
+  --font-sans: "Helvetica Neue", "Arial", sans-serif;
+}
+
+@layer components {
+  /* 1. Define navbar links */
+  .navbar-link {
+    @apply relative pb-1 text-secondary hover:text-accent transition-colors duration-300;
+  }
+
+  /* 2. 利用 ::after 伪元素直接画出那条下划线（无需在代码里写 <span>） */
+  .navbar-link::after {
+    content: "";
+    @apply absolute left-0 bottom-0 w-full h-[2px] bg-accent scale-x-0 origin-left transition-transform duration-300 ease-out;
+  }
+
+  /* 3. 当鼠标悬浮在链接上时，让下划线展开 */
+  .navbar-link:hover::after {
+    @apply scale-x-100;
+  }
+
+  /* 1. Base Button Styles & Subtle Default Glow */
+  .btn-get-in-touch {
+    @apply flex items-center justify-center px-6 py-2.5 text-sm font-medium text-white rounded-full border border-transparent transition-all duration-300;
+
+    /* 2. Three-Layer Background Magic */
+    background-image: 
+      /* Layer 1 (Top): The Spherical Inner Glow at the top center */
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(28, 75, 136, 0.4) 0%,
+        transparent 50%
+      ),
+      /* Layer 2 (Middle): The solid dark background of the button */
+        linear-gradient(#070b10, #070b10),
+      /* Layer 3 (Bottom): The gradient border */
+        linear-gradient(to bottom, #657385, #1e1b34);
+
+    /* 3. Clipping instructions for the 3 layers */
+    /* The first two layers stop at the padding, the last layer extends to the border */
+    background-origin: padding-box, padding-box, border-box;
+    background-clip: padding-box, padding-box, border-box;
+  }
+
+  /* 2. The Hover State (The Cyan/Blue Glow) */
+  .btn-get-in-touch:hover {
+    @apply shadow-[0_3px_10px_0px_rgba(51,86,175,0.7)];
+    background-image: 
+      /* Makes the glow slightly brighter and wider on hover */
+      radial-gradient(
+        circle at 50% 0%,
+        rgba(28, 75, 136, 0.6) 0%,
+        transparent 65%
+      ),
+      linear-gradient(#070b10, #070b10),
+      linear-gradient(to bottom, #657385, #1e1b34);
+  }
+}
 
 body {
-  background-color: #050505; /* Deep, rich black */
+  background-color: var(--color-primary);
   color: #ffffff;
 }

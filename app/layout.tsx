@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,39 +26,50 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
       {/* Added global dark background and white text here */}
-      <body className="min-h-full flex flex-col bg-[#050505] text-white">
-        
+      <body className="min-h-full flex flex-col text-white">
         {/* --- NAVIGATION BAR --- */}
         <nav className="w-full flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
           {/* Logo */}
           <Link href="/">
-            <Image 
-              src="/r-logo.png" 
-              alt="R Logo" 
-              width={40} 
-              height={40} 
+            <Image
+              src="/r-logo.png"
+              alt="R Logo"
+              width={40}
+              height={40}
               className="cursor-pointer"
             />
           </Link>
 
           {/* Desktop Links */}
-          <div className="flex items-center gap-8 text-sm text-gray-400">
-            <Link href="/#services" className="hover:text-white transition-colors">Services</Link>
-            <Link href="/#about" className="hover:text-white transition-colors">About Me</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Portfolio</Link>
-            <Link href="/#pricing" className="hover:text-white transition-colors">Pricing</Link>
-            <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+          <div className="flex items-center gap-14 text-m text-secondary ">
+            <Link href="/#services" className="navbar-link">
+              Services
+            </Link>
+            <Link href="/#about" className="navbar-link">
+              About Me
+            </Link>
+            <Link href="/portfolio" className="navbar-link">
+              Portfolio
+            </Link>
+            <Link href="/#pricing" className="navbar-link">
+              Pricing
+            </Link>
+            <Link href="/blog" className="navbar-link">
+              Blog
+            </Link>
           </div>
 
           {/* Contact Button */}
-          <Link 
-            href="#contact" 
-            className="inline-block px-6 py-2 text-sm font-medium border border-gray-700 rounded-full hover:bg-white hover:text-black transition-all"
-          >
-            Get in touch
-          </Link>
+          <div className="flex justify-end">
+            <Link href="#contact" className="hidden md:flex btn-get-in-touch">
+              Get in touch
+            </Link>
+          </div>
         </nav>
         {/* --- END NAVIGATION BAR --- */}
 
@@ -67,7 +78,6 @@ export default function RootLayout({
 
         {/* --- FOOTER --- */}
         <Footer />
-        
       </body>
     </html>
   );
