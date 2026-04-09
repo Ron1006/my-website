@@ -29,7 +29,7 @@ const testimonials = [
 export default function ClientSuccess() {
     return (
         <section className="w-full py-24 bg-[#050505] relative overflow-hidden">
-            {/* 背景光晕装饰 (可选，让背景不那么死板) */}
+            {/* 背景光晕装饰*/}
             <div className="absolute top-0 right-1/4 w-126 h-126 bg-[#284B65]/60 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
