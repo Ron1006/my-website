@@ -10,8 +10,8 @@ const projects = [
     { id: 3, title: "Equivision", category: "UI/UX Design and Development, Wix", image: "/hero/hero3-mobile.png", link: "#" },
     { id: 4, title: "Kwikshadez", category: "UI/UX Design and Development, Wordpress", image: "/hero/hero4-mobile.png", link: "#" },
     { id: 5, title: "Monsters Incoming", category: "Game Development, Unity", image: "/hero/hero5-mobile.png", link: "#" },
-    { id: 6, title: "EZY-FIT", category: "UI/UX Design and Development, Shopify", image: "/hero/hero6-mobile.png", link: "#" },
-    { id: 7, title: "Huawei Auto - AITO", category: "Branding, UI/UX Design", image: "/hero/hero7-mobile.png", link: "#" },
+    { id: 6, title: "EZY-FIT", category: "UI/UX Design and Development, Shopify", image: "/hero/hero7-mobile.png", link: "#" },
+    { id: 7, title: "Huawei Auto - AITO", category: "Branding, UI/UX Design", image: "/hero/hero6-mobile.png", link: "#" },
     { id: 8, title: "Royal Caribbean", category: "UI/UX Design", image: "/hero/hero8-mobile.png", link: "#" },
 ];
 
