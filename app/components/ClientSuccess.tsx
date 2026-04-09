@@ -15,14 +15,14 @@ const testimonials = [
     {
         id: 2,
         text: "Working together was a breeze. He took our complex requirements and built a blazing-fast, custom Next.js website that exceeded all expectations. Highly recommended!",
-        author: "@James L",
-        avatar: "/images/client1.png"
+        author: "@Lisa K",
+        avatar: "/images/client2.png"
     },
     {
         id: 3,
         text: "Professional, responsive, and detail-oriented. He managed the entire project from the initial mockup to the final launch flawlessly. The best developer I've worked with.",
-        author: "@James L",
-        avatar: "/images/client1.png"
+        author: "@Kobe B",
+        avatar: "/images/client3.png"
     }
 ];
 
