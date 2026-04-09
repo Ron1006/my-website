@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="w-full border-t border-gray-800 mt-20">
       <div className="max-w-7xl mx-auto px-8 py-16">
-        
+
         {/* TOP SECTION: Newsletter */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-20">
           <div className="max-w-md">
@@ -17,16 +17,16 @@ export default function Footer() {
               Join my automated weekly newsletter where I share UI design tips, Next.js development insights, and behind-the-scenes looks at my latest projects.
             </p>
           </div>
-          
+
           <form className="flex flex-col gap-4 w-full md:w-80" onSubmit={(e) => e.preventDefault()}>
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
+            <input
+              type="email"
+              placeholder="Enter your email"
               className="w-full bg-transparent border border-gray-700 rounded-full px-6 py-3 text-sm text-white focus:outline-none focus:border-gray-500 transition-colors"
             />
-            <button 
-              type="submit" 
-              className="w-full bg-gradient-to-b from-gray-800 to-[#0a0a0a] border border-gray-700 rounded-full px-6 py-3 text-sm text-white hover:border-gray-500 transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)]"
+            <button
+              type="submit"
+              className="btn-get-in-touch w-full  px-6 py-3 text-sm text-white hover:border-gray-500 transition-all shadow-[0_0_15px_rgba(255,255,255,0.05)]"
             >
               Subscribe
             </button>
@@ -35,14 +35,14 @@ export default function Footer() {
 
         {/* MIDDLE SECTION: Links and Contact */}
         <div className="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
-          
+
           {/* Brand & Location */}
           <div className="flex flex-col gap-4">
-            <Image 
-              src="/r-logo.png" 
-              alt="R Logo" 
-              width={48} 
-              height={48} 
+            <Image
+              src="/r-logo.png"
+              alt="R Logo"
+              width={48}
+              height={48}
               className="mb-2"
             />
             <p className="text-sm text-gray-400">Mount Maunganui, NZ — Working Worldwide</p>
@@ -58,10 +58,9 @@ export default function Footer() {
               <Link href="/#about" className="text-sm text-gray-400 hover:text-white transition-colors">About</Link>
               <Link href="/portfolio" className="text-sm text-gray-400 hover:text-white transition-colors">Portfolio</Link>
               <Link href="/#services" className="text-sm text-gray-400 hover:text-white transition-colors">Services</Link>
-              <Link href="/#pricing" className="text-sm text-gray-400 hover:text-white transition-colors">Pricing</Link>
               <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">Blog</Link>
             </div>
-            
+
             <div className="flex flex-col gap-4">
               <h3 className="text-white font-medium mb-2">Social</h3>
               <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">GitHub</a>

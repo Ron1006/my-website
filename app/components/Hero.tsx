@@ -5,11 +5,41 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projects = [
-  { id: 1, name: "Del Tutto", image: "/hero/hero1.jpg", rotate: -6 },
-  { id: 2, name: "Quantum Leap", image: "/hero/hero2.jpg", rotate: 4 },
-  { id: 3, name: "Neon Nights", image: "/hero/hero3.jpg", rotate: -3 },
-  { id: 4, name: "Solar Symphony", image: "/hero/hero4.jpg", rotate: 5 },
-  { id: 5, name: "Echo Chamber", image: "/hero/hero5.jpg", rotate: -2 },
+  { 
+    id: 1, 
+    name: "Eye for Detail", 
+    desktopImage: "/hero/hero1.png", 
+    mobileImage: "/hero/hero1-mobile.png", // 记得在 public/hero 下放一张竖版图片
+    rotate: -6 
+  },
+  { 
+    id: 2, 
+    name: "Del Tutto", 
+    desktopImage: "/hero/hero2.png", 
+    mobileImage: "/hero/hero2-mobile.png", 
+    rotate: 4 
+  },
+  { 
+    id: 3, 
+    name: "Equivision", 
+    desktopImage: "/hero/hero3.png", 
+    mobileImage: "/hero/hero3-mobile.png", 
+    rotate: -3 
+  },
+  { 
+    id: 4, 
+    name: "Kwikshadez", 
+    desktopImage: "/hero/hero4.png", 
+    mobileImage: "/hero/hero4-mobile.png", 
+    rotate: 5 
+  },
+  { 
+    id: 5, 
+    name: "Monsters Incoming", 
+    desktopImage: "/hero/hero5.png", 
+    mobileImage: "/hero/hero5-mobile.png", 
+    rotate: -2 
+  },
 ];
 
 export default function Hero() {
@@ -25,31 +55,55 @@ export default function Hero() {
   }, []);
 
   return (
-    <section
-      className="relative w-full h-[300vh] bg-[#050505]"
-      ref={containerRef}
-    >
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-        {/* 背景标题 */}
-        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[10vw] font-bold text-white/5 whitespace-nowrap z-0">
-          CRAFTING EXPERIENCES
-        </h1>
+    <section className="relative w-full h-[300vh] bg-[#050505]" ref={containerRef}>
 
-        {/* 图片堆叠区域 */}
-        <div className="relative w-[300px] md:w-[700px] h-[200px] md:h-[420px] z-10 ">
+      {/* LAYER 1: The Blue Spherical Glow (Lowest Layer) */}
+      <div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(33, 71, 98, 0.35) 0%, transparent 70%)`
+        }}
+      />
+
+      {/* LAYER 2: The Sticky Container (Holds everything else) */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center">
+
+        {/* LAYER 3: Stardust (Transparent background so we see the Glow through it) */}
+        <div
+          className="absolute inset-0 z-0 opacity-40 pointer-events-none"
+          style={{
+            // REMOVED: backgroundColor: '#050505' (This was blocking the glow)
+            backgroundImage: `
+              radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 3px),
+              radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px),
+              radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 2px)
+            `,
+            backgroundSize: '550px 550px, 350px 350px, 250px 250px',
+            backgroundPosition: '0 0, 40px 60px, 130px 270px'
+          }}
+        />
+
+        {/* LAYER 4: Scrolling Background Title (Fixed opacity typo) */}
+        <div className="absolute top-[8%] md:top-[40%] left-0 -translate-y-1/2 w-full overflow-hidden pointer-events-none z-0">
+          <div className="animate-marquee flex">
+            {[1, 2, 3].map((num) => (
+              <h1
+                key={num}
+                className="text-[10vw] font-bold text-white/80 tracking-tighter pr-20 "
+              >
+                Crafting Experiences • Digital Solutions • Innovative Design •
+              </h1>
+            ))}
+          </div>
+        </div>
+
+        {/* LAYER 5: Image Stack (Z-10) */}
+        <div className="relative w-[300px] md:w-[700px] h-[400px] md:h-[420px] z-10">
           {projects.map((project, index) => {
-            // --- 核心逻辑：分段计算 ---
-            // 假设每张图片在滚动 400px 后完成滑动
             const segmentHeight = 500;
             const startScroll = index * segmentHeight;
-            const endScroll = (index + 1) * segmentHeight;
-
-            // 计算当前图片在自己片段内的进度 (0 到 1)
             let progress = (scrollY - startScroll) / segmentHeight;
-            progress = Math.min(Math.max(progress, 0), 1); // 限制在 0-1 之间
-
-            // 只有当进度大于 0 时，才开始向上滑动
-            // 滑动距离为负值，-1000px 确保它完全飞出屏幕
+            progress = Math.min(Math.max(progress, 0), 1);
             const translateY = progress * -1000;
 
             return (
@@ -59,42 +113,54 @@ export default function Hero() {
                 style={{
                   zIndex: projects.length - index,
                   transform: `translateY(${translateY}px) rotate(${project.rotate}deg)`,
-                  // 当图片完全滑出后，隐藏它以优化性能
                   opacity: progress === 1 ? 0 : 1,
-                  transition: "transform 0.1s ease-out", // 增加一点平滑感
+                  transition: "transform 0.1s ease-out",
                 }}
               >
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover"
+                {/* 👇 2. 电脑端图片 (大于md时显示，否则隐藏) */}
+                <Image 
+                  src={project.desktopImage} 
+                  alt={`${project.name} Desktop`} 
+                  fill 
+                  priority={index === 0} // 给第一张图加 priority 优化 LCP 加载速度
+                  className="hidden md:block object-cover" 
+                />
+                
+                {/* 👇 3. 手机端图片 (默认显示，大于md时隐藏) */}
+                <Image 
+                  src={project.mobileImage} 
+                  alt={`${project.name} Mobile`} 
+                  fill 
+                  priority={index === 0}
+                  className="block md:hidden object-cover" 
                 />
               </div>
             );
           })}
         </div>
 
-        {/* 当前项目名称显示 */}
-        <div className="mt-20 h-10 flex items-center justify-center">
-          {/* 逻辑：根据滚动距离显示对应的项目名称 */}
+        {/* LAYER 6: Project Name */}
+        <div className="relative mt-8 md:mt-12 h-10 w-full flex items-center justify-center z-20">
           {projects.map((p, i) => {
+            // 判断当前滚动到了哪一张图片
             const isActive = scrollY >= i * 500 && scrollY < (i + 1) * 500;
             return (
-              isActive && (
-                <p
-                  key={p.id}
-                  className="text-white tracking-[0.3em] uppercase font-light animate-in fade-in slide-in-from-bottom-2 duration-500"
-                >
-                  {p.name}
-                </p>
-              )
+              <p 
+                key={p.id} 
+                className={`absolute text-white text-lg md:text-xl tracking-[0.3em] uppercase font-light transition-all duration-500 ease-out ${
+                  isActive 
+                    ? "opacity-100 translate-y-0" // 激活时：显示且归位
+                    : "opacity-0 translate-y-6"   // 未激活时：隐藏且往下偏移
+                }`}
+              >
+                {p.name}
+              </p>
             );
           })}
         </div>
 
-        <div className="mt-5 animate-in fade-in zoom-in duration-700 delay-300">
-          <Link href="#contact" className="btn-get-in-touch">
+        <div className="mt-5 z-20 animate-in fade-in zoom-in duration-700 delay-300">
+          <Link href="/#contact" className="btn-get-in-touch scale-125 origin-center inline-block">
             Get in touch
           </Link>
         </div>

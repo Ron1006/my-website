@@ -4,6 +4,7 @@ import "./globals.css";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,44 +34,7 @@ export default function RootLayout({
       {/* Added global dark background and white text here */}
       <body className="min-h-full flex flex-col text-white">
         {/* --- NAVIGATION BAR --- */}
-        <nav className="w-full flex items-center justify-between px-8 py-6 max-w-7xl mx-auto">
-          {/* Logo */}
-          <Link href="/">
-            <Image
-              src="/r-logo.png"
-              alt="R Logo"
-              width={40}
-              height={40}
-              className="cursor-pointer"
-            />
-          </Link>
-
-          {/* Desktop Links */}
-          <div className="flex items-center gap-14 text-m text-secondary ">
-            <Link href="/#services" className="navbar-link">
-              Services
-            </Link>
-            <Link href="/#about" className="navbar-link">
-              About Me
-            </Link>
-            <Link href="/portfolio" className="navbar-link">
-              Portfolio
-            </Link>
-            <Link href="/#pricing" className="navbar-link">
-              Pricing
-            </Link>
-            <Link href="/blog" className="navbar-link">
-              Blog
-            </Link>
-          </div>
-
-          {/* Contact Button */}
-          <div className="flex justify-end">
-            <Link href="#contact" className="hidden md:flex btn-get-in-touch">
-              Get in touch
-            </Link>
-          </div>
-        </nav>
+        <Navbar />
         {/* --- END NAVIGATION BAR --- */}
 
         {/* This is where your page content gets injected */}
