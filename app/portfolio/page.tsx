@@ -1,50 +1,56 @@
-'use client';
+
 
 import React from 'react';
 import Link from 'next/link';
+import { client } from '@/sanity/lib/client'; // Import the client we just created
 
-// --- 你的真实作品集数据 ---
-const projects = [
-    { id: 1, title: "Eye for detail", category: "UI/UX Design and Development, Webflow", image: "/hero/hero1-mobile.png", link: "#" },
-    { id: 2, title: "Del Tutto", category: "UI/UX Design and Development, Webflow", image: "/hero/hero2-mobile.png", link: "#" },
-    { id: 3, title: "Equivision", category: "UI/UX Design and Development, Wix", image: "/hero/hero3-mobile.png", link: "#" },
-    { id: 4, title: "Kwikshadez", category: "UI/UX Design and Development, Wordpress", image: "/hero/hero4-mobile.png", link: "#" },
-    { id: 5, title: "Monsters Incoming", category: "Game Development, Unity", image: "/hero/hero5-mobile.png", link: "#" },
-    { id: 6, title: "EZY-FIT", category: "UI/UX Design and Development, Shopify", image: "/hero/hero7-mobile.png", link: "#" },
-    { id: 7, title: "Huawei Auto - AITO", category: "Branding, UI/UX Design", image: "/hero/hero6-mobile.png", link: "#" },
-    { id: 8, title: "Royal Caribbean", category: "UI/UX Design", image: "/hero/hero8-mobile.png", link: "#" },
-];
+// Define the GROQ query to fetch the data
+const PROJECTS_QUERY = `*[_type == "project"] | order(sortOrder asc) {
+  _id,
+  title,
+  "slug": slug.current,
+  category,
+  "coverImage": coverImage.asset->url
+}`;
 
-export default function Portfolio() {
+export default async function Portfolio() {
+    // 👈 Asynchronously fetch projects from the database
+    const projects = await client.fetch(PROJECTS_QUERY);
+
+    // ✅ 替换为这两行：利用 index 奇偶数交叉分配
+    const leftColProjects = projects.filter((_: any, index: number) => index % 2 === 0);
+    const rightColProjects = projects.filter((_: any, index: number) => index % 2 !== 0);
+
     return (
         <main className="min-h-screen bg-[#050505] pt-32 pb-48 px-6 flex justify-center">
-
-            {/* max-w-5xl 限制宽度，实现整体居中和控制图片大小 */}
             <div className="max-w-5xl w-full">
 
-                {/* --- 页面标题 --- */}
+                {/* Page Title */}
                 <div className="text-center mb-16 md:mb-24 mt-8">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white animate-[fadeUp_1s_ease-out_forwards] opacity-0 translate-y-8">
                         Portfolio
                     </h1>
                 </div>
 
-                {/* --- 核心布局区 (原生 Flexbox 分列法) --- */}
+                {/* Core Layout (Flexbox Columns) */}
                 <div className="flex flex-col md:flex-row gap-10 md:gap-16 w-full">
 
-                    {/* 👇 左侧列 (取数组的前 4 个项目) */}
+                    {/* Left Column */}
                     <div className="flex flex-col gap-10 md:gap-16 flex-1">
-                        {projects.slice(0, 4).map((project) => (
-                            <Link href={project.link} key={project.id} className="group flex flex-col w-full">
-                                {/* 图片容器 */}
+                        {leftColProjects.map((project: any, index: number) => (
+                            <Link
+                                href={`/portfolio/${project.slug}`}
+                                key={project._id}
+                                className="group flex flex-col w-full opacity-0 translate-y-12 animate-[fadeUp_1s_ease-out_forwards]"
+                                style={{ animationDelay: `${200 + index * 150}ms` }}
+                            >
                                 <div className="w-full rounded-2xl overflow-hidden mb-5 bg-[#111]">
                                     <img
-                                        src={project.image}
+                                        src={project.coverImage || '/hero/hero1-mobile.png'}
                                         alt={project.title}
                                         className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                     />
                                 </div>
-                                {/* 文本信息 */}
                                 <div className="flex flex-col items-start text-left">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-2 text-white group-hover:text-[#ff8a00] transition-colors duration-300">
                                         {project.title}
@@ -57,20 +63,22 @@ export default function Portfolio() {
                         ))}
                     </div>
 
-                    {/* 👇 右侧列 (取数组的后 4 个项目) */}
-                    {/* md:mt-24 是灵魂！让右列在电脑端往下坠，形成高级瀑布流 */}
+                    {/* Right Column */}
                     <div className="flex flex-col gap-10 md:gap-16 flex-1 md:mt-24">
-                        {projects.slice(4, 8).map((project) => (
-                            <Link href={project.link} key={project.id} className="group flex flex-col w-full">
-                                {/* 图片容器 */}
+                        {rightColProjects.map((project: any, index: number) => (
+                            <Link
+                                href={`/portfolio/${project.slug}`}
+                                key={project._id}
+                                className="group flex flex-col w-full opacity-0 translate-y-12 animate-[fadeUp_1s_ease-out_forwards]"
+                                style={{ animationDelay: `${400 + index * 150}ms` }}
+                            >
                                 <div className="w-full rounded-2xl overflow-hidden mb-5 bg-[#111]">
                                     <img
-                                        src={project.image}
+                                        src={project.coverImage || '/hero/hero2-mobile.png'}
                                         alt={project.title}
                                         className="w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                     />
                                 </div>
-                                {/* 文本信息 */}
                                 <div className="flex flex-col items-start text-left">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-2 text-white group-hover:text-[#ff8a00] transition-colors duration-300">
                                         {project.title}
@@ -82,7 +90,6 @@ export default function Portfolio() {
                             </Link>
                         ))}
                     </div>
-
                 </div>
             </div>
         </main>

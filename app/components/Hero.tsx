@@ -5,40 +5,40 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projects = [
-  { 
-    id: 1, 
-    name: "Eye for Detail", 
-    desktopImage: "/hero/hero1.png", 
+  {
+    id: 1,
+    name: "Eye for Detail",
+    desktopImage: "/hero/hero1.png",
     mobileImage: "/hero/hero1-mobile.png", // 记得在 public/hero 下放一张竖版图片
-    rotate: -6 
+    rotate: -6
   },
-  { 
-    id: 2, 
-    name: "Del Tutto", 
-    desktopImage: "/hero/hero2.png", 
-    mobileImage: "/hero/hero2-mobile.png", 
-    rotate: 4 
+  {
+    id: 2,
+    name: "Del Tutto",
+    desktopImage: "/hero/hero2.png",
+    mobileImage: "/hero/hero2-mobile.png",
+    rotate: 4
   },
-  { 
-    id: 3, 
-    name: "Equivision", 
-    desktopImage: "/hero/hero3.png", 
-    mobileImage: "/hero/hero3-mobile.png", 
-    rotate: -3 
+  {
+    id: 3,
+    name: "Equivision",
+    desktopImage: "/hero/hero3.png",
+    mobileImage: "/hero/hero3-mobile.png",
+    rotate: -3
   },
-  { 
-    id: 4, 
-    name: "Kwikshadez", 
-    desktopImage: "/hero/hero4.png", 
-    mobileImage: "/hero/hero4-mobile.png", 
-    rotate: 5 
+  {
+    id: 4,
+    name: "Kwikshadez",
+    desktopImage: "/hero/hero4.png",
+    mobileImage: "/hero/hero4-mobile.png",
+    rotate: 5
   },
-  { 
-    id: 5, 
-    name: "Monsters Incoming", 
-    desktopImage: "/hero/hero5.png", 
-    mobileImage: "/hero/hero5-mobile.png", 
-    rotate: -2 
+  {
+    id: 5,
+    name: "Monsters Incoming",
+    desktopImage: "/hero/hero5.png",
+    mobileImage: "/hero/hero5-mobile.png",
+    rotate: -2
   },
 ];
 
@@ -118,21 +118,21 @@ export default function Hero() {
                 }}
               >
                 {/* 👇 2. 电脑端图片 (大于md时显示，否则隐藏) */}
-                <Image 
-                  src={project.desktopImage} 
-                  alt={`${project.name} Desktop`} 
-                  fill 
+                <Image
+                  src={project.desktopImage}
+                  alt={`${project.name} Desktop`}
+                  fill
                   priority={index === 0} // 给第一张图加 priority 优化 LCP 加载速度
-                  className="hidden md:block object-cover" 
+                  className="hidden md:block object-cover"
                 />
-                
+
                 {/* 👇 3. 手机端图片 (默认显示，大于md时隐藏) */}
-                <Image 
-                  src={project.mobileImage} 
-                  alt={`${project.name} Mobile`} 
-                  fill 
+                <Image
+                  src={project.mobileImage}
+                  alt={`${project.name} Mobile`}
+                  fill
                   priority={index === 0}
-                  className="block md:hidden object-cover" 
+                  className="block md:hidden object-cover"
                 />
               </div>
             );
@@ -145,13 +145,12 @@ export default function Hero() {
             // 判断当前滚动到了哪一张图片
             const isActive = scrollY >= i * 500 && scrollY < (i + 1) * 500;
             return (
-              <p 
-                key={p.id} 
-                className={`absolute text-white text-lg md:text-xl tracking-[0.3em] uppercase font-light transition-all duration-500 ease-out ${
-                  isActive 
-                    ? "opacity-100 translate-y-0" // 激活时：显示且归位
-                    : "opacity-0 translate-y-6"   // 未激活时：隐藏且往下偏移
-                }`}
+              <p
+                key={p.id}
+                className={`absolute text-white text-lg md:text-xl tracking-[0.3em] uppercase font-light transition-all duration-500 ease-out ${isActive
+                  ? "opacity-100 translate-y-0" // 激活时：显示且归位
+                  : "opacity-0 translate-y-6"   // 未激活时：隐藏且往下偏移
+                  }`}
               >
                 {p.name}
               </p>
@@ -160,8 +159,8 @@ export default function Hero() {
         </div>
 
         <div className="mt-5 z-20 animate-in fade-in zoom-in duration-700 delay-300">
-          <Link href="/#contact" className="btn-get-in-touch scale-125 origin-center inline-block">
-            Get in touch
+          <Link href="/portfolio" className="btn-get-in-touch scale-125 origin-center inline-block">
+            Portfolio
           </Link>
         </div>
       </div>

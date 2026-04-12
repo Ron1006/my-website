@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 const config: Config = {
     // 👇 告诉 Tailwind 去哪里找你的代码
@@ -15,6 +16,6 @@ const config: Config = {
             },
         },
     },
-    plugins: [],
+    plugins: [require("tailwindcss-animate"),],
 };
 export default config;

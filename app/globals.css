@@ -102,6 +102,17 @@
   animation-play-state: paused;
 }
 
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(2rem); /* 对应 translate-y-8 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 body {
   background-color: var(--color-primary);
   color: #ffffff;
