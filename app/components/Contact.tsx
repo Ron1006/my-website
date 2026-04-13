@@ -1,20 +1,50 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 export default function Contact() {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // 使用 IntersectionObserver 监听 Contact 区块
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    if (sectionRef.current) observer.unobserve(sectionRef.current);
+                }
+            },
+            {
+                // 阈值设为 0.2，因为表单较高，稍微露出一点就开始播放体验更好
+                threshold: 0.2,
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    // 统一定义动画 class
+    const animationClass = `opacity-0 translate-y-8 ${isVisible ? 'animate-[fadeUp_1s_ease-out_forwards]' : ''}`;
+
     return (
-        <section id="contact" className="w-full py-24 bg-[#050505] flex justify-center">
+        <section id="contact" ref={sectionRef} className="w-full py-24 bg-[#050505] flex justify-center overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 w-full">
 
                 <div className="grid grid-cols-1 md:grid-cols-9 gap-6 md:gap-3">
 
-                    {/* --- 左侧信息卡片 --- */}
-                    <div className="bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 flex flex-col gap-8 col-span-1 md:col-span-4">
-                        {/* 世界地图图片 (请在 public/images/ 下准备一张名为 world-map.png 的点阵地图图) */}
+                    {/* --- 左侧信息卡片：先入场 (150ms 延迟) --- */}
+                    <div
+                        className={`bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 flex flex-col gap-8 col-span-1 md:col-span-4 ${animationClass}`}
+                        style={{ animationDelay: '150ms' }}
+                    >
+                        {/* 世界地图图片 */}
                         <div className="relative w-full aspect-video md:aspect-[4/3] mb-12 opacity-80">
-                            {/* 提示：如果没有地图图片，可以先注释掉下面这行 Image，用个 div 占位 */}
                             <Image
                                 src="/images/map.avif"
                                 alt="Global Reach"
@@ -38,9 +68,6 @@ export default function Contact() {
                             {/* 社交媒体按钮组 */}
                             <div className="flex flex-wrap gap-4 pt-4">
                                 {/* WhatsApp */}
-                                {/* 1. 将 button 改为 a 标签 */}
-                                {/* 2. 在 href 中填入你的手机号 (带国家代码，但不带 + 号) */}
-                                {/* 3. 添加 target="_blank" 确保在新标签页打开 */}
                                 <a
                                     href="https://wa.me/64212316024?text=Hi! I saw your portfolio and would like to discuss a project."
                                     target="_blank"
@@ -53,7 +80,7 @@ export default function Contact() {
                                     WhatsApp
                                 </a>
 
-                                {/* 👇 已修改为 Facebook */}
+                                {/* Facebook */}
                                 <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -72,8 +99,11 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    {/* --- 右侧表单卡片 --- */}
-                    <div className="bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 col-span-1 md:col-span-5">
+                    {/* --- 右侧表单卡片：稍后入场 (350ms 延迟) --- */}
+                    <div
+                        className={`bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 col-span-1 md:col-span-5 ${animationClass}`}
+                        style={{ animationDelay: '350ms' }}
+                    >
                         <h3 className="text-3xl font-bold text-white mb-4">Send Us a Message</h3>
                         <p className="text-gray-400 mb-8 leading-relaxed">
                             You can use the contact form below to send us a message directly. We will get back to you as soon as possible.
@@ -114,7 +144,6 @@ export default function Contact() {
                                         <option value="Web Development" className="bg-[#111]">Web Development</option>
                                         <option value="Other" className="bg-[#111]">Other</option>
                                     </select>
-                                    {/* 自定义下拉箭头图标 */}
                                     <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
                                         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
@@ -136,7 +165,7 @@ export default function Contact() {
                             {/* Submit Button */}
                             <button
                                 type="submit"
-                                className="btn-get-in-touch w-full py-4 mt-2  text-white font-bold tracking-wide ]"
+                                className="btn-get-in-touch w-full py-4 mt-2 text-white font-bold tracking-wide"
                             >
                                 Submit Now
                             </button>
