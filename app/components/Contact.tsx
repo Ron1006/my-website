@@ -7,8 +7,10 @@ export default function Contact() {
     const [isVisible, setIsVisible] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
 
+    const [form, setForm] = useState({ name: '', email: '', businessType: 'E-commerce', message: '' });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
     useEffect(() => {
-        // 使用 IntersectionObserver 监听 Contact 区块
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -16,21 +18,30 @@ export default function Contact() {
                     if (sectionRef.current) observer.unobserve(sectionRef.current);
                 }
             },
-            {
-                // 阈值设为 0.2，因为表单较高，稍微露出一点就开始播放体验更好
-                threshold: 0.2,
-            }
+            { threshold: 0.2 }
         );
-
-        if (sectionRef.current) {
-            observer.observe(sectionRef.current);
-        }
-
+        if (sectionRef.current) observer.observe(sectionRef.current);
         return () => observer.disconnect();
     }, []);
 
-    // 统一定义动画 class
     const animationClass = `opacity-0 translate-y-8 ${isVisible ? 'animate-[fadeUp_1s_ease-out_forwards]' : ''}`;
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus('loading');
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            });
+            if (!res.ok) throw new Error();
+            setStatus('success');
+            setForm({ name: '', email: '', businessType: 'E-commerce', message: '' });
+        } catch {
+            setStatus('error');
+        }
+    };
 
     return (
         <section id="contact" ref={sectionRef} className="w-full py-24 bg-[#050505] flex justify-center overflow-hidden">
@@ -38,12 +49,11 @@ export default function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-9 gap-6 md:gap-3">
 
-                    {/* --- 左侧信息卡片：先入场 (150ms 延迟) --- */}
+                    {/* Left info card */}
                     <div
                         className={`bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 flex flex-col gap-8 col-span-1 md:col-span-4 ${animationClass}`}
                         style={{ animationDelay: '150ms' }}
                     >
-                        {/* 世界地图图片 */}
                         <div className="relative w-full aspect-video md:aspect-[4/3] mb-12 opacity-80">
                             <Image
                                 src="/images/map.avif"
@@ -65,9 +75,7 @@ export default function Contact() {
                                 </div>
                             </div>
 
-                            {/* 社交媒体按钮组 */}
                             <div className="flex flex-wrap gap-4 pt-4">
-                                {/* WhatsApp */}
                                 <a
                                     href="https://wa.me/64212316024?text=Hi! I saw your portfolio and would like to discuss a project."
                                     target="_blank"
@@ -80,26 +88,34 @@ export default function Contact() {
                                     WhatsApp
                                 </a>
 
-                                {/* Facebook */}
-                                <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors">
+                                <a
+                                    href="https://www.facebook.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"
+                                >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                     </svg>
                                     Facebook
-                                </button>
+                                </a>
 
-                                {/* Instagram */}
-                                <button className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors">
+                                <a
+                                    href="https://www.instagram.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm font-medium hover:bg-white/5 hover:text-white transition-colors"
+                                >
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path fillRule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clipRule="evenodd" />
                                     </svg>
                                     Instagram
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    {/* --- 右侧表单卡片：稍后入场 (350ms 延迟) --- */}
+                    {/* Right form card */}
                     <div
                         className={`bg-[#111111] border border-white/5 rounded-3xl p-8 md:p-12 col-span-1 md:col-span-5 ${animationClass}`}
                         style={{ animationDelay: '350ms' }}
@@ -109,68 +125,95 @@ export default function Contact() {
                             You can use the contact form below to send us a message directly. We will get back to you as soon as possible.
                         </p>
 
-                        <form className="space-y-6">
-
-                            {/* Name & Email Row */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-medium text-gray-300">Full Name</label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter your name"
-                                        className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all"
-                                    />
+                        {status === 'success' ? (
+                            <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
+                                <div className="w-16 h-16 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center">
+                                    <svg className="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-medium text-gray-300">Email</label>
-                                    <input
-                                        type="email"
-                                        placeholder="Enter your Email"
-                                        className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all"
-                                    />
-                                </div>
+                                <h4 className="text-xl font-semibold text-white">Message Sent!</h4>
+                                <p className="text-gray-400">Thanks for reaching out. I'll get back to you shortly.</p>
+                                <button
+                                    onClick={() => setStatus('idle')}
+                                    className="mt-4 text-sm text-gray-400 hover:text-white transition-colors underline underline-offset-4"
+                                >
+                                    Send another message
+                                </button>
                             </div>
-
-                            {/* Business Type Dropdown */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-medium text-gray-300">Business Type</label>
-                                <div className="relative">
-                                    <select
-                                        className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white appearance-none focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all cursor-pointer"
-                                        defaultValue="E-commerce"
-                                    >
-                                        <option value="E-commerce" className="bg-[#111]">E-commerce</option>
-                                        <option value="UI/UX Design" className="bg-[#111]">UI/UX Design</option>
-                                        <option value="Web Development" className="bg-[#111]">Web Development</option>
-                                        <option value="Other" className="bg-[#111]">Other</option>
-                                    </select>
-                                    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                                        </svg>
+                        ) : (
+                            <form className="space-y-6" onSubmit={handleSubmit}>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-medium text-gray-300">Full Name</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Enter your name"
+                                            required
+                                            value={form.name}
+                                            onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
+                                            className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="text-sm font-medium text-gray-300">Email</label>
+                                        <input
+                                            type="email"
+                                            placeholder="Enter your Email"
+                                            required
+                                            value={form.email}
+                                            onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
+                                            className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all"
+                                        />
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Message Textarea */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-medium text-gray-300">Message</label>
-                                <textarea
-                                    rows={4}
-                                    placeholder="Type your opinion"
-                                    className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all resize-none"
-                                />
-                            </div>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-medium text-gray-300">Business Type</label>
+                                    <div className="relative">
+                                        <select
+                                            value={form.businessType}
+                                            onChange={(e) => setForm(f => ({ ...f, businessType: e.target.value }))}
+                                            className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white appearance-none focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all cursor-pointer"
+                                        >
+                                            <option value="E-commerce" className="bg-[#111]">E-commerce</option>
+                                            <option value="UI/UX Design" className="bg-[#111]">UI/UX Design</option>
+                                            <option value="Web Development" className="bg-[#111]">Web Development</option>
+                                            <option value="Other" className="bg-[#111]">Other</option>
+                                        </select>
+                                        <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+                                            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                className="btn-get-in-touch w-full py-4 mt-2 text-white font-bold tracking-wide"
-                            >
-                                Submit Now
-                            </button>
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-sm font-medium text-gray-300">Message</label>
+                                    <textarea
+                                        rows={4}
+                                        placeholder="Type your message"
+                                        required
+                                        value={form.message}
+                                        onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))}
+                                        className="w-full bg-transparent border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-white/30 focus:bg-white/5 transition-all resize-none"
+                                    />
+                                </div>
 
-                        </form>
+                                {status === 'error' && (
+                                    <p className="text-red-400 text-sm">Something went wrong. Please try again or email me directly.</p>
+                                )}
+
+                                <button
+                                    type="submit"
+                                    disabled={status === 'loading'}
+                                    className="btn-get-in-touch w-full py-4 mt-2 text-white font-bold tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {status === 'loading' ? 'Sending...' : 'Submit Now'}
+                                </button>
+                            </form>
+                        )}
                     </div>
 
                 </div>

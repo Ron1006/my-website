@@ -14,12 +14,17 @@ const projects = [
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
-  const [segmentHeight, setSegmentHeight] = useState(800); // 默认一个大概的屏幕高度兜底
+  const [segmentHeight, setSegmentHeight] = useState(800);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // 客户端渲染后，获取真实的设备屏幕高度
     setSegmentHeight(window.innerHeight);
-    const handleResize = () => setSegmentHeight(window.innerHeight);
+    const mq = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mq.matches);
+    const handleResize = () => {
+      setSegmentHeight(window.innerHeight);
+      setIsMobile(mq.matches);
+    };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -105,18 +110,11 @@ export default function Hero() {
                     }}
                   >
                     <Image
-                      src={project.desktopImage}
-                      alt={`${project.name} Desktop`}
+                      src={isMobile ? project.mobileImage : project.desktopImage}
+                      alt={project.name}
                       fill
                       priority={index === 0}
-                      className="hidden md:block object-cover"
-                    />
-                    <Image
-                      src={project.mobileImage}
-                      alt={`${project.name} Mobile`}
-                      fill
-                      priority={index === 0}
-                      className="block md:hidden object-cover"
+                      className="object-cover"
                     />
                   </div>
                 );

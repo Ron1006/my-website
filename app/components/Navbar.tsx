@@ -32,7 +32,7 @@ export default function Navbar() {
                     <Link href="/#services" className="navbar-link">Services</Link>
                     <Link href="/#about" className="navbar-link">About Me</Link>
                     <Link href="/portfolio" className="navbar-link">Portfolio</Link>
-                    <Link href="/blog" className="navbar-link">Blog</Link>
+                    <Link href="/insights" className="navbar-link">Insights</Link>
                 </div>
 
                 {/* Desktop Button - FIXED: Added the button back */}
@@ -56,10 +56,10 @@ export default function Navbar() {
                 {isOpen && (
                     <div className="fixed inset-0 bg-[#040506]/80 backdrop-blur-sm z-[1000] flex flex-col pt-32 px-10 animate-in fade-in duration-300">
                         <div className="flex flex-col gap-8 text-xl font-light tracking-wide text-white">
-                            <Link href="/#services" onClick={() => setIsOpen(false)}>Features</Link>
                             <Link href="/#services" onClick={() => setIsOpen(false)}>Services</Link>
-                            <Link href="/portfolio" onClick={() => setIsOpen(false)}>Process</Link>
-                            <Link href="/blog" onClick={() => setIsOpen(false)}>Blog</Link>
+                            <Link href="/#about" onClick={() => setIsOpen(false)}>About Me</Link>
+                            <Link href="/portfolio" onClick={() => setIsOpen(false)}>Portfolio</Link>
+                            <Link href="/insights" onClick={() => setIsOpen(false)}>Insights</Link>
                         </div>
 
                         <div className="mt-12 w-full">

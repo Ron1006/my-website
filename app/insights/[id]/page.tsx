@@ -37,7 +37,7 @@ export default function InsightDetail() {
             <div className="max-w-5xl mx-auto px-6 mb-16">
                 {/* Back Button */}
                 <Link
-                    href="/blog"
+                    href="/insights"
                     className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6 group"
                 >
                     <svg

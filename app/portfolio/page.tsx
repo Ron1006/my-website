@@ -1,10 +1,8 @@
 
-
 import React from 'react';
 import Link from 'next/link';
-import { client } from '@/sanity/lib/client'; // Import the client we just created
+import { client } from '@/sanity/lib/client';
 
-// Define the GROQ query to fetch the data
 const PROJECTS_QUERY = `*[_type == "project"] | order(sortOrder asc) {
   _id,
   title,
@@ -14,10 +12,8 @@ const PROJECTS_QUERY = `*[_type == "project"] | order(sortOrder asc) {
 }`;
 
 export default async function Portfolio() {
-    // 👈 Asynchronously fetch projects from the database
     const projects = await client.fetch(PROJECTS_QUERY);
 
-    // ✅ 替换为这两行：利用 index 奇偶数交叉分配
     const leftColProjects = projects.filter((_: any, index: number) => index % 2 === 0);
     const rightColProjects = projects.filter((_: any, index: number) => index % 2 !== 0);
 
