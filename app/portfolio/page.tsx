@@ -4,6 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { client } from '@/sanity/lib/client'; // Import the client we just created
 
+export const revalidate = 60;
+
 // Define the GROQ query to fetch the data
 const PROJECTS_QUERY = `*[_type == "project"] | order(sortOrder asc) {
   _id,

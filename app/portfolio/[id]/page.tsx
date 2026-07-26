@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { PortableText } from '@portabletext/react';
 
+export const revalidate = 60;
+
 // The GROQ query to fetch ONE specific project by its slug
 const PROJECT_QUERY = `*[_type == "project" && slug.current == $slug][0] {
   title,

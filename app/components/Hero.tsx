@@ -5,11 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projects = [
-  { id: 1, name: "Eye for Detail", desktopImage: "/hero/hero1.png", mobileImage: "/hero/hero1-mobile.png", rotate: -6 },
-  { id: 2, name: "Del Tutto", desktopImage: "/hero/hero2.png", mobileImage: "/hero/hero2-mobile.png", rotate: 4 },
-  { id: 3, name: "Equivision", desktopImage: "/hero/hero3.png", mobileImage: "/hero/hero3-mobile.png", rotate: -3 },
-  { id: 4, name: "Kwikshadez", desktopImage: "/hero/hero4.png", mobileImage: "/hero/hero4-mobile.png", rotate: 5 },
-  { id: 5, name: "Monsters Incoming", desktopImage: "/hero/hero5.png", mobileImage: "/hero/hero5-mobile.png", rotate: -2 },
+  { id: 0, name: "Basketnz", desktopImage: "/hero/hero3.png", mobileImage: "/hero/hero3-mobile.png", rotate: -6, link: "/portfolio/basketnz" },
+  { id: 1, name: "Eye for Detail", desktopImage: "/hero/hero1.png", mobileImage: "/hero/hero1-mobile.png", rotate: 4, link: "/portfolio" },
+  { id: 2, name: "Del Tutto", desktopImage: "/hero/hero2.png", mobileImage: "/hero/hero2-mobile.png", rotate: -3, link: "/portfolio" },
+  { id: 3, name: "Equivision", desktopImage: "/hero/hero9.png", mobileImage: "/hero/hero9-mobile.png", rotate: 5, link: "/portfolio" },
+  { id: 4, name: "Kwikshadez", desktopImage: "/hero/hero4.png", mobileImage: "/hero/hero4-mobile.png", rotate: -2, link: "/portfolio" },
+  { id: 5, name: "Monsters Incoming", desktopImage: "/hero/hero5.png", mobileImage: "/hero/hero5-mobile.png", rotate: 3, link: "/portfolio" },
 ];
 
 export default function Hero() {
@@ -141,7 +142,10 @@ export default function Hero() {
             </div>
 
             <div className="mt-5 z-20 animate-in fade-in zoom-in duration-700 delay-300 pointer-events-auto">
-              <Link href="/portfolio" className="btn-get-in-touch scale-125 origin-center inline-block">
+              <Link
+                href={projects[Math.min(Math.max(Math.round(scrollY / segmentHeight), 0), projects.length - 1)].link}
+                className="btn-get-in-touch scale-125 origin-center inline-block"
+              >
                 Portfolio
               </Link>
             </div>
