@@ -88,7 +88,7 @@ export default function Insights() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-16">
                     {posts.map((post, index) => (
                         <Link
-                            href={`#blog-${post.id}`}
+                            href={`/insights/${post.id}`}
                             key={post.id}
                             // 加上入场动画的 class
                             className={`group flex flex-col bg-[#111111] border border-white/5 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-2 hover:border-white/15 hover:shadow-2xl hover:shadow-#3356AF/5 ${animationClass}`}
@@ -134,7 +134,7 @@ export default function Insights() {
 
                     <div className={`${animationClass}`} style={{ animationDelay: '1350ms' }}>
                         <Link
-                            href="#all-insights"
+                            href="/insights"
                             className="btn-get-in-touch inline-flex items-center justify-center px-8 py-3 scale-125 text-white text-sm font-medium transition-all duration-300"
                         >
                             Explore All Insights

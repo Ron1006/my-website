@@ -110,7 +110,7 @@ export default function Blog() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-12">
           {currentPosts.map((post) => (
             <Link
-              href={`#blog-${post.id}`}
+              href={`/insights/${post.id}`}
               key={post.id}
               className="group flex flex-col bg-[#111111] border border-white/5 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-2 hover:border-white/15 hover:shadow-2xl hover:shadow-[#3356AF]/5"
             >

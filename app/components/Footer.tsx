@@ -58,13 +58,13 @@ export default function Footer() {
               <Link href="/#about" className="text-sm text-gray-400 hover:text-white transition-colors">About</Link>
               <Link href="/portfolio" className="text-sm text-gray-400 hover:text-white transition-colors">Portfolio</Link>
               <Link href="/#services" className="text-sm text-gray-400 hover:text-white transition-colors">Services</Link>
-              <Link href="/blog" className="text-sm text-gray-400 hover:text-white transition-colors">Blog</Link>
+              <Link href="/insights" className="text-sm text-gray-400 hover:text-white transition-colors">Insights</Link>
             </div>
 
             <div className="flex flex-col gap-4">
               <h3 className="text-white font-medium mb-2">Social</h3>
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">GitHub</a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+              <a href="https://github.com/Ron1006" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">GitHub</a>
+              <a href="https://www.linkedin.com/in/rong-liu-5a985127a/" target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-white transition-colors">LinkedIn</a>
             </div>
           </div>
         </div>
