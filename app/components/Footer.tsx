@@ -14,7 +14,7 @@ export default function Footer() {
           <div className="max-w-md">
             <h2 className="text-3xl font-semibold mb-4 text-white">Automated Weekly Insights</h2>
             <p className="text-gray-400 leading-relaxed">
-              Join my automated weekly newsletter where I share UI design tips, Next.js development insights, and behind-the-scenes looks at my latest projects.
+              Join my weekly newsletter where I share AI automation workflows, Next.js development insights, UI design tips, and behind-the-scenes looks at my latest projects.
             </p>
           </div>
 

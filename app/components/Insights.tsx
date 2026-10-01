@@ -129,7 +129,7 @@ export default function Insights() {
                         className={`text-gray-400 text-sm md:text-base leading-relaxed mb-10 ${animationClass}`}
                         style={{ animationDelay: '1200ms' }}
                     >
-                        I bridge the gap between aesthetics and functionality. From pixel-perfect layouts to robust Next.js and Unity builds, I treat every project as a digital masterpiece.
+                        Notes from real projects: AI agent workflows, full-stack builds, and the design decisions behind them.
                     </p>
 
                     <div className={`${animationClass}`} style={{ animationDelay: '1350ms' }}>

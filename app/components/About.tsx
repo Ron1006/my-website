@@ -68,7 +68,7 @@ export default function AboutMe() {
                     className={`text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-16 ${animationClass}`}
                     style={{ animationDelay: '300ms' }}
                 >
-                    With over 5 years of UI/UX design experience, I engineer premium web applications and interactive games that look exactly as good as they perform.
+                    With 5+ years in UI/UX and web development, I build AI-powered automation and production web apps that look exactly as good as they perform.
                 </h2>
 
                 {/* --- ICONS ROW WITH SCROLL ANIMATION --- */}
@@ -100,7 +100,7 @@ export default function AboutMe() {
                     className={`max-w-2xl mx-auto text-gray-400 text-lg md:text-base leading-relaxed mb-12 ${animationClass}`}
                     style={{ animationDelay: '1200ms' }}
                 >
-                    I bridge the gap between aesthetics and functionality. From pixel-perfect layouts to robust Next.js and Unity builds, I treat every project as a digital masterpiece.
+                    From n8n and Claude agent workflows that run a business&apos;s daily reporting across 70+ ad accounts, to React and Supabase platforms comparing 30,000+ products, I design it, build it, and automate it. Bachelor in Information Technology (NZ).
                 </p>
 
                 {/* Button */}

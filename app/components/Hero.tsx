@@ -84,7 +84,7 @@ export default function Hero() {
               <div className="animate-marquee flex">
                 {[1, 2, 3].map((num) => (
                   <h1 key={num} className="text-[10vw] font-bold text-white/80 tracking-tighter pr-20">
-                    Crafting Experiences • Digital Solutions • Innovative Design •
+                    AI Automation • Full-Stack Development • UI/UX Design •
                   </h1>
                 ))}
               </div>

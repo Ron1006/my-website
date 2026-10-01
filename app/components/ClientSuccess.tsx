@@ -3,24 +3,34 @@
 import React from 'react';
 import Image from 'next/image';
 
-const testimonials = [
+const results = [
     {
         id: 1,
-        text: "The new website completely transformed our online presence. His decade of UI design experience really shows—the site is not only beautiful but incredibly intuitive for our users.",
-        author: "@James L",
-        avatar: "/images/client1.png"
+        stat: "70+",
+        label: "ad accounts on automated daily reporting",
+        detail: "n8n, Claude and Supabase agent workflows calculate budgets and ad spend across Meta and Google Ads every day, replacing a manual process.",
+        source: "Squid Group"
     },
     {
         id: 2,
-        text: "Working together was a breeze. He took our complex requirements and built a blazing-fast, custom Next.js website that exceeded all expectations. Highly recommended!",
-        author: "@Lisa K",
-        avatar: "/images/client2.png"
+        stat: "30,000+",
+        label: "products compared across 3 NZ supermarkets",
+        detail: "Fuzzy matching, Playwright scrapers and a nightly pg_cron pipeline keep prices current with no manual work.",
+        source: "Basket NZ"
     },
     {
         id: 3,
-        text: "Professional, responsive, and detail-oriented. He managed the entire project from the initial mockup to the final launch flawlessly. The best developer I've worked with.",
-        author: "@Kobe B",
-        avatar: "/images/client3.png"
+        stat: "3 apps",
+        label: "connected from contract to invoice",
+        detail: "A signed HelloSign contract now triggers contract analysis, a Xero invoice and a ClickUp task automatically.",
+        source: "Squid Group"
+    },
+    {
+        id: 4,
+        stat: "5+ yrs",
+        label: "of UI/UX and web development",
+        detail: "Production websites for NZ businesses, taken from Figma design through to a responsive live build.",
+        source: "Eye For Detail, Del Tutto"
     }
 ];
 
@@ -41,10 +51,10 @@ export default function ClientSuccess() {
                         style={{ animationDelay: '150ms' }}
                     >
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
-                            Client Success Stories
+                            Proven Results
                         </h2>
                         <p className="text-gray-400 text-lg leading-relaxed">
-                            Discover how custom web solutions and thoughtful UI design have helped businesses grow and stand out.
+                            Real numbers from production work for New Zealand businesses, from AI automation to full-stack platforms.
                         </p>
                     </div>
 
@@ -66,33 +76,27 @@ export default function ClientSuccess() {
                     </div>
                 </div>
 
-                {/* --- 评价卡片网格区域：依次入场 --- */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {/* 注意这里在 map 里加了 index 参数 */}
-                    {testimonials.map((item, index) => (
+                {/* --- 成果数据卡片：依次入场 --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {results.map((item, index) => (
                         <div
                             key={item.id}
-                            // 加上入场动画的 class
-                            className="bg-white/[0.03] border border-white/5 rounded-2xl p-7 flex gap-5 hover:bg-white/[0.05] transition-colors duration-300 opacity-0 translate-y-8 animate-[fadeUp_1s_ease-out_forwards]"
-                            // 使用 index 动态计算延迟时间：400ms, 600ms, 800ms
+                            className="bg-white/[0.03] border border-white/5 rounded-2xl p-7 flex flex-col hover:bg-white/[0.05] transition-colors duration-300 opacity-0 translate-y-8 animate-[fadeUp_1s_ease-out_forwards]"
+                            // 使用 index 动态计算延迟时间：400ms, 600ms, 800ms, 1000ms
                             style={{ animationDelay: `${400 + index * 200}ms` }}
                         >
-                            {/* 头像 */}
-                            <div className="flex-shrink-0">
-                                <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-800 relative">
-                                    <Image src={item.avatar} alt={item.author} fill className="object-cover" />
-                                </div>
-                            </div>
-
-                            {/* 评价内容与作者 */}
-                            <div className="flex flex-col justify-between">
-                                <p className="text-sm text-gray-300 leading-relaxed mb-4">
-                                    {item.text}
-                                </p>
-                                <p className="text-sm font-medium text-[#ff8a00]">
-                                    {item.author}
-                                </p>
-                            </div>
+                            <p className="text-4xl md:text-5xl font-bold text-[#ff8a00] tracking-tight mb-2">
+                                {item.stat}
+                            </p>
+                            <p className="text-white font-medium leading-snug mb-4">
+                                {item.label}
+                            </p>
+                            <p className="text-sm text-gray-400 leading-relaxed mb-6 flex-1">
+                                {item.detail}
+                            </p>
+                            <p className="text-xs uppercase tracking-[0.2em] text-gray-500">
+                                {item.source}
+                            </p>
                         </div>
                     ))}
                 </div>

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rong Liu — Portfolio",
-  description: "UI/UX designer and full-stack developer based in New Zealand. Building premium web applications, e-commerce solutions, and interactive games.",
+  title: "Rong Liu — Full-Stack Developer & AI Automation Engineer",
+  description: "Full-stack developer, AI automation engineer and UI/UX designer based in Mount Maunganui, New Zealand. Building AI agent workflows with n8n, Claude and Supabase, and production web apps with React and Next.js.",
 };
 
 export default function RootLayout({

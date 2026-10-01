@@ -4,14 +4,15 @@ import React from 'react';
 
 // The service data extracted from your design
 const servicesList = [
-    { title: 'UI/UX Design', skills: 'User Research | Wireframing | Prototyping' },
-    { title: 'Front-End Dev', skills: 'React | Next.js | Tailwind CSS' },
-    { title: 'Full-Stack Dev', skills: 'Node.js | Cloud Database | API Integration' },
-    { title: 'No-Code Web Dev', skills: 'Webflow | Wix | Framer' },
-    { title: 'E-Commerce Solutions', skills: 'Shopify | Custom Cart | Payments' },
-    { title: 'CMS Integration', skills: 'WordPress | Sanity | Strapi' },
-    { title: 'Game Development', skills: 'Unity | C# | Interactive 3D' },
-    { title: 'SEO & Performance', skills: 'Technical SEO | Core Web Vitals | Analytics' },
+    { title: 'AI Agent Workflows', skills: 'n8n | Claude / LLM Agents | Supabase' },
+    { title: 'Business Automation', skills: 'Xero | ClickUp | HelloSign | Canva' },
+    { title: 'Full-Stack Dev', skills: 'Next.js | Node.js | Python | PostgreSQL' },
+    { title: 'Front-End Dev', skills: 'React | TypeScript | Tailwind CSS' },
+    { title: 'UI/UX Design', skills: 'Figma | Prototyping | WCAG' },
+    { title: 'Web Platforms', skills: 'Webflow | WordPress | Wix Studio' },
+    { title: 'E-Commerce Solutions', skills: 'Shopify | Stripe | PayPal' },
+    { title: 'Data & Scraping', skills: 'Playwright | Python | pg_cron' },
+    { title: 'SEO & PWA', skills: 'Technical SEO | Offline Support | Core Web Vitals' },
 ];
 
 export default function Services() {
