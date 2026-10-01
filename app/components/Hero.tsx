@@ -5,12 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 const projects = [
-  { id: 0, name: "Basketnz", desktopImage: "/hero/hero3.png", mobileImage: "/hero/hero3-mobile.png", rotate: -6, link: "/portfolio/basketnz" },
-  { id: 1, name: "Eye for Detail", desktopImage: "/hero/hero1.png", mobileImage: "/hero/hero1-mobile.png", rotate: 4, link: "/portfolio" },
-  { id: 2, name: "Del Tutto", desktopImage: "/hero/hero2.png", mobileImage: "/hero/hero2-mobile.png", rotate: -3, link: "/portfolio" },
-  { id: 3, name: "Equivision", desktopImage: "/hero/hero9.png", mobileImage: "/hero/hero9-mobile.png", rotate: 5, link: "/portfolio" },
-  { id: 4, name: "Kwikshadez", desktopImage: "/hero/hero4.png", mobileImage: "/hero/hero4-mobile.png", rotate: -2, link: "/portfolio" },
-  { id: 5, name: "Monsters Incoming", desktopImage: "/hero/hero5.png", mobileImage: "/hero/hero5-mobile.png", rotate: 3, link: "/portfolio" },
+  { id: 0, name: "EasyPage", desktopImage: "/hero/hero10.jpg", mobileImage: "/hero/hero10-mobile.jpg", rotate: -6, link: "/portfolio/easypage-nz" },
+  { id: 1, name: "Basketnz", desktopImage: "/hero/hero3.png", mobileImage: "/hero/hero3-mobile.png", rotate: 4, link: "/portfolio/basketnz" },
+  { id: 2, name: "Eye for Detail", desktopImage: "/hero/hero1.png", mobileImage: "/hero/hero1-mobile.png", rotate: -3, link: "/portfolio/eye-for-detail" },
+  { id: 3, name: "Del Tutto", desktopImage: "/hero/hero2.png", mobileImage: "/hero/hero2-mobile.png", rotate: 5, link: "/portfolio/del-tutto" },
+  { id: 4, name: "Kwikshadez", desktopImage: "/hero/hero4.png", mobileImage: "/hero/hero4-mobile.png", rotate: -2, link: "/portfolio/kwikshadez" },
+  { id: 5, name: "Monsters Incoming", desktopImage: "/hero/hero5.png", mobileImage: "/hero/hero5-mobile.png", rotate: 3, link: "/portfolio/monsters-incoming" },
 ];
 
 export default function Hero() {
@@ -100,9 +100,13 @@ export default function Hero() {
                 const translateY = progress * -1000;
 
                 return (
-                  <div
+                  <Link
                     key={project.id}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden border border-white/10 shadow-2xl will-change-transform"
+                    href={project.link}
+                    aria-label={`View ${project.name} project`}
+                    // 已滑走的卡片不可点击，避免挡住下面的卡片
+                    tabIndex={progress === 1 ? -1 : undefined}
+                    className={`absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden border border-white/10 shadow-2xl will-change-transform cursor-pointer ${progress === 1 ? "pointer-events-none" : ""}`}
                     style={{
                       zIndex: projects.length - index,
                       transform: `translateY(${translateY}px) rotate(${project.rotate}deg)`,
@@ -117,7 +121,7 @@ export default function Hero() {
                       priority={index === 0}
                       className="object-cover"
                     />
-                  </div>
+                  </Link>
                 );
               })}
             </div>
